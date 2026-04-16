@@ -43,7 +43,11 @@ public final class AaptManager {
 
         StringBuilder binPath = new StringBuilder("/prebuilt/");
         if (OSDetection.isUnix()) {
-            binPath.append("linux"); // ELF 64-bit LSB executable, x86-64
+            if (OSDetection.isArm64()) {
+                binPath.append("linux/arm64"); // ELF 64-bit LSB executable, aarch64
+            } else {
+                binPath.append("linux"); // ELF 64-bit LSB executable, x86-64
+            }
         } else if (OSDetection.isMacOSX()) {
             binPath.append("macosx"); // fat binary x86_64 + arm64
         } else if (OSDetection.isWindows()) {
