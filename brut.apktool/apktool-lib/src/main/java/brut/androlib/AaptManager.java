@@ -51,7 +51,11 @@ public final class AaptManager {
 
         StringBuilder aaptPath = new StringBuilder("/prebuilt/");
         if (OSDetection.isUnix()) {
-            aaptPath.append("linux");
+            if (OSDetection.isArm64()) {
+                aaptPath.append("linux/arm64");
+            } else {
+                aaptPath.append("linux");
+            }
         } else if (OSDetection.isMacOSX()) {
             aaptPath.append("macosx");
         } else if (OSDetection.isWindows()) {
@@ -61,7 +65,7 @@ public final class AaptManager {
         }
         aaptPath.append("/");
         aaptPath.append(aaptName);
-        if (OSDetection.is64Bit()) {
+        if (OSDetection.is64Bit() && !(OSDetection.isUnix() && OSDetection.isArm64())) {
             aaptPath.append("_64");
         }
         if (OSDetection.isWindows()) {

@@ -46,6 +46,18 @@ jobs:
       - name: Output Static
         run: ldd ${{ env.BINARY_PATH }}/linux/${{ matrix.file }} || true
 
+  analyze-linux-arm64-aapt:
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      matrix:
+        file: [ aapt2 ]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify Executable
+        run: ${{ env.BINARY_PATH }}/linux/arm64/${{ matrix.file }} version
+      - name: Output Static
+        run: ldd ${{ env.BINARY_PATH }}/linux/arm64/${{ matrix.file }} || true
+
   analyze-windows-aapt:
     runs-on: windows-latest
     strategy:
@@ -63,6 +75,7 @@ jobs:
     needs:
       - analyze-mac-aapt
       - analyze-linux-aapt
+      - analyze-linux-arm64-aapt
       - analyze-windows-aapt
     name: Build/Test (JDK ${{ matrix.java }}, ${{ matrix.os }})
     strategy:
