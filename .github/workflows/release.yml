@@ -26,9 +26,12 @@ jobs:
           cache-provider: basic
 
       - name: Build release
-        run: ./gradlew build shadowJar proguard release
+        run: ./gradlew release build shadowJar proguard
+
+      - name: List output files
+        run: ls -lh brut.apktool/apktool-cli/build/libs/
 
       - name: Upload apktool.jar to release
         uses: softprops/action-gh-release@v2
         with:
-          files: brut.apktool/apktool-cli/build/libs/apktool_v*.jar
+          files: brut.apktool/apktool-cli/build/libs/apktool_*.jar
