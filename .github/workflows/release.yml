@@ -34,4 +34,4 @@ jobs:
       - name: Upload apktool.jar to release
         uses: softprops/action-gh-release@v2
         with:
-          files: brut.apktool/apktool-cli/build/libs/apktool_*.jar
+          files: brut.apktool/apktool-cli/build/libs/apktool-*.jar
